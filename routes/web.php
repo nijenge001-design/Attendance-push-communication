@@ -2,6 +2,13 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::livewire('/','pages::-welcome' )->name('home');
-Route::livewire('/org-chart','org-chart' )->name('org-chart');
 
+
+Route::middleware(['web'])->group(function () {
+//    Route::livewire();
+    Route::livewire('/login', 'login')->name('login');
+
+    Route::middleware('auth:sanctum')->group(function () {
+        Route::livewire('/', 'pages::home')->name('home');
+    });
+});

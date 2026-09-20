@@ -14,9 +14,15 @@
     /* Fonts */
     --font-sans: 'Instrument Sans', Gotham, Inter, ui-sans-serif, system-ui, sans-serif,
     'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+    --font-feature-settings: 'liga' 1, 'calt' 1;
+}
+
+
+
+@theme {
 
     /* Map zinc → slate so existing zinc-* utilities keep working */
-    --color-zinc-50:  var(--color-slate-50);
+    --color-zinc-50: var(--color-slate-50);
     --color-zinc-100: var(--color-slate-100);
     --color-zinc-200: var(--color-slate-200);
     --color-zinc-300: var(--color-slate-300);
@@ -29,21 +35,20 @@
     --color-zinc-950: var(--color-slate-950);
 
     /* Primary – neutral gray scale */
-
-    --color-Primary-50: #fafafa;
-    --color-Primary-100: #f3f3f6;
-    --color-Primary-200: #e1e1ea;
-    --color-Primary-300: #d1d1db;
-    --color-Primary-400: #9a99b2;
-    --color-Primary-500: #6a6982;
-    --color-Primary-600: #494860;
-    --color-Primary-700: #3a394c;
-    --color-Primary-800: #24242d;
-    --color-Primary-900: #15151e;
-    --color-Primary-950: #07070d;
+    --color-primary-50: #fafafa;
+    --color-primary-100: #f3f3f6;
+    --color-primary-200: #e1e1ea;
+    --color-primary-300: #d1d1db;
+    --color-primary-400: #9a99b2;
+    --color-primary-500: #6a6982;
+    --color-primary-600: #494860;
+    --color-primary-700: #3a394c;
+    --color-primary-800: #24242d;
+    --color-primary-900: #15151e;
+    --color-primary-950: #07070d;
 
     /* Green */
-    --color-green-50:  #eefff0;
+    --color-green-50: #eefff0;
     --color-green-100: #d7ffdd;
     --color-green-200: #b2ffbe;
     --color-green-300: #76ff8d;
@@ -56,7 +61,7 @@
     --color-green-950: #00340b;
 
     /* Gold */
-    --color-gold-50:  #ffffe7;
+    --color-gold-50: #ffffe7;
     --color-gold-100: #feffc1;
     --color-gold-200: #fffd86;
     --color-gold-300: #fff341;
@@ -68,14 +73,14 @@
     --color-gold-900: #74470f;
     --color-gold-950: #442504;
 
-    /* Semantic aliases (optional but convenient) */
+    /* Semantic aliases */
     --color-success: var(--color-green-600);
     --color-warning: var(--color-gold-500);
-    --color-danger:  #dc2626; /* keep a clear red for errors */
+    --color-danger: #dc2626;
 
     /* Accent used by Flux / Livewire */
-    --color-accent:            var(--color-slate-800);
-    --color-accent-content:    var(--color-slate-800);
+    --color-accent: var(--color-slate-800);
+    --color-accent-content: var(--color-slate-800);
     --color-accent-foreground: var(--color-white);
 }
 
@@ -85,8 +90,8 @@
 /* Dark mode accent overrides */
 @layer theme {
     .dark {
-        --color-accent:            var(--color-white);
-        --color-accent-content:    var(--color-white);
+        --color-accent: var(--color-white);
+        --color-accent-content: var(--color-white);
         --color-accent-foreground: var(--color-slate-800);
     }
 }
@@ -103,18 +108,18 @@
 /* Custom utilities                                                           */
 /* -------------------------------------------------------------------------- */
 
-.scrollable {
-    @apply overflow-auto; /* overflow-scroll is rarely needed */
+@utility scrollable {
+    overflow: auto;
     -webkit-overflow-scrolling: touch;
 }
 
-.w-fill-available {
+@utility w-fill-available {
     width: 100%;
     width: -webkit-fill-available;
     width: -moz-available;
 }
 
-.h-fill-available {
+@utility h-fill-available {
     height: 100%;
     height: -webkit-fill-available;
     height: -moz-available;
@@ -124,42 +129,42 @@
 /* Custom scrollbar (light + dark)                                            */
 /* -------------------------------------------------------------------------- */
 
-.scrollbar-custom {
+@utility scrollbar-custom {
     scrollbar-width: thin;
-    scrollbar-color: #6b7280 #e5e7eb; /* thumb track (light) */
+    scrollbar-color: #6b7280 #e5e7eb;
+
+    &::-webkit-scrollbar {
+        width: 6px;
+        height: 6px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: #e5e7eb;
+        border-radius: 9999px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: #6b7280;
+        border-radius: 9999px;
+
+        &:hover {
+            background: #4b5563;
+        }
+    }
 }
 
 .dark .scrollbar-custom {
-    scrollbar-color: #9ca3af #1f2937; /* thumb track (dark) */
-}
+    scrollbar-color: #9ca3af #1f2937;
 
-.scrollbar-custom::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
-}
+    &::-webkit-scrollbar-track {
+        background: #1f2937;
+    }
 
-.scrollbar-custom::-webkit-scrollbar-track {
-    background: #e5e7eb;
-    border-radius: 9999px;
-}
+    &::-webkit-scrollbar-thumb {
+        background: #9ca3af;
 
-.dark .scrollbar-custom::-webkit-scrollbar-track {
-    background: #1f2937;
-}
-
-.scrollbar-custom::-webkit-scrollbar-thumb {
-    background: #6b7280;
-    border-radius: 9999px;
-}
-
-.scrollbar-custom::-webkit-scrollbar-thumb:hover {
-    background: #4b5563;
-}
-
-.dark .scrollbar-custom::-webkit-scrollbar-thumb {
-    background: #9ca3af;
-}
-
-.dark .scrollbar-custom::-webkit-scrollbar-thumb:hover {
-    background: #d1d5db;
+        &:hover {
+            background: #d1d5db;
+        }
+    }
 }

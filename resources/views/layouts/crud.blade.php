@@ -13,7 +13,6 @@
     <link href="https://fonts.bunny.net/css?family=inter:400,500,600&display=swap" rel="stylesheet" />
 </head>
 <body class="min-h-screen bg-white dark:bg-zinc-800  scrollbar-custom">
-
 {{ $slot }}
 
 @livewireScripts
